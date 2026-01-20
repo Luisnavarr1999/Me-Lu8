@@ -1,7 +1,47 @@
 import './style.css'
 
 document.querySelector('#app').innerHTML = `
-  <main class="container">
+  <div class="intro-screen" aria-hidden="true">
+    <span class="intro-name">Lucho</span>
+    <span class="intro-greeting">Hola, soy Lucho 👋</span>
+  </div>
+
+  <main class="container content">
+    <header class="card projects-header">
+      <div class="projects-heading">
+        <p class="eyebrow">Proyectos</p>
+        <h2>Mis trabajos más recientes</h2>
+        <p class="subtitle">Una selección rápida de lo que estoy construyendo.</p>
+      </div>
+
+      <ul class="project-list">
+        <li class="project-card">
+          <img src="/project-vet.svg" alt="Proyecto Vet Arce Manager" class="project-image" />
+          <div>
+            <h3>Vet Arce Manager</h3>
+            <p>Sistema web veterinario para gestionar pacientes, citas y reportes.</p>
+            <div class="project-tags">
+              <span>Python</span>
+              <span>Django</span>
+              <span>PostgreSQL</span>
+            </div>
+          </div>
+        </li>
+        <li class="project-card">
+          <img src="/project-api.svg" alt="Proyecto Inventario API" class="project-image" />
+          <div>
+            <h3>Inventario API</h3>
+            <p>API REST con Django para practicar autenticación, CRUD y documentación.</p>
+            <div class="project-tags">
+              <span>Django REST</span>
+              <span>JWT</span>
+              <span>SQLite</span>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </header>
+
     <header class="card hero">
       <h1>Hola, soy Lucho 👋</h1>
       <p class="subtitle">Estudiante de Ingeniería en Informática</p>
@@ -45,17 +85,8 @@ document.querySelector('#app').innerHTML = `
       </ul>
     </section>
 
-    <section class="card">
-      <h2>Proyectos</h2>
-      <ul>
-        <li><strong>Vet Arce Manager</strong> — Sistema web veterinario</li>
-        <li><strong>Inventario API</strong> — API REST con Django (test para practicar)</li>
-      </ul>
-    </section>
-
     <footer class="card">
       <p>📫 Contacto: luisnavarr1999@gmail.com </p>
     </footer>
   </main>
 `
-

@@ -8,12 +8,46 @@ body{
   color: #e7e9ee;
 }
 
+.intro-screen{
+  position: fixed;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  background: radial-gradient(circle at top, rgba(61,92,255,0.25), transparent 55%),
+    #0b0f19;
+  z-index: 10;
+  animation: introFade 3.6s ease forwards;
+  pointer-events: none;
+}
+
+.intro-name{
+  font-size: clamp(3.5rem, 10vw, 6rem);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  animation: introName 2s ease forwards;
+}
+
+.intro-greeting{
+  font-size: clamp(1.2rem, 3.5vw, 1.8rem);
+  opacity: 0;
+  animation: introGreeting 1.8s ease 1.2s forwards;
+}
+
 .container{
   max-width: 900px;
   margin: 0 auto;
   padding: 32px 16px;
   display: grid;
   gap: 16px;
+}
+
+.content{
+  opacity: 0;
+  animation: contentFade 0.8s ease 3s forwards;
 }
 
 .card{
@@ -49,6 +83,69 @@ li{ margin: 6px 0; }
 .hero{
   text-align: center;
   padding: 48px 24px;
+}
+
+.projects-header{
+  display: grid;
+  gap: 18px;
+}
+
+.projects-heading{
+  display: grid;
+  gap: 6px;
+}
+
+.eyebrow{
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  font-size: 0.8rem;
+  color: rgba(255,255,255,0.7);
+  margin: 0;
+}
+
+.project-list{
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 16px;
+}
+
+.project-card{
+  display: grid;
+  grid-template-columns: 120px 1fr;
+  gap: 16px;
+  align-items: center;
+  background: rgba(15,19,35,0.7);
+  border-radius: 14px;
+  padding: 16px;
+}
+
+.project-image{
+  width: 120px;
+  height: 90px;
+  object-fit: cover;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.1);
+}
+
+.project-card h3{
+  margin: 0 0 6px;
+}
+
+.project-tags{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.project-tags span{
+  font-size: 0.78rem;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.1);
 }
 
 .hero h1{
@@ -124,5 +221,65 @@ li{ margin: 6px 0; }
   to{
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+@keyframes introFade{
+  0%{
+    opacity: 1;
+  }
+  80%{
+    opacity: 1;
+  }
+  100%{
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+@keyframes introName{
+  0%{
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  40%{
+    opacity: 1;
+    transform: translateY(0);
+  }
+  100%{
+    opacity: 0.2;
+  }
+}
+
+@keyframes introGreeting{
+  from{
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to{
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes contentFade{
+  from{
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to{
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 720px){
+  .project-card{
+    grid-template-columns: 1fr;
+  }
+
+  .project-image{
+    width: 100%;
+    height: 160px;
   }
 }

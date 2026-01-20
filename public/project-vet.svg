@@ -1,0 +1,16 @@
+<svg width="480" height="360" viewBox="0 0 480 360" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="vet" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#5a8cff"/>
+      <stop offset="100%" stop-color="#3dd6a5"/>
+    </linearGradient>
+  </defs>
+  <rect width="480" height="360" rx="32" fill="url(#vet)"/>
+  <g fill="white" opacity="0.9">
+    <circle cx="140" cy="160" r="52"/>
+    <circle cx="240" cy="120" r="40"/>
+    <circle cx="320" cy="170" r="46"/>
+    <path d="M200 240c26 28 64 42 104 38 32-3 60-17 82-38" stroke="white" stroke-width="12" stroke-linecap="round" fill="none"/>
+  </g>
+  <text x="32" y="320" fill="white" font-size="34" font-family="'Segoe UI', sans-serif" font-weight="700">Vet Arce Manager</text>
+</svg>
