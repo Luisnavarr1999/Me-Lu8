@@ -8,15 +8,19 @@ document.querySelector('#app').innerHTML = `
       <p class="intro-subtitle">Gracias por visitar</p>
     </div>
   </div>
+
   <div class="layout">
     <aside class="sidebar">
       <div class="brand">LU8</div>
+
       <nav class="nav">
+        <a href="#home">inicio</a>
         <a href="#about">acerca de mi</a>
         <a href="#skills">habilidades</a>
-        <a href="#projects">Proyectos</a>
-        <a href="#contact">Contactame</a>
+        <a href="#projects">proyectos</a>
+        <a href="#contact">contactame</a>
       </nav>
+
       <div class="social">
         <a class="social-link" href="https://github.com/Luisnavarr1999" target="_blank" rel="noreferrer">
           <svg viewBox="0 0 24 24" aria-hidden="true">
@@ -24,6 +28,7 @@ document.querySelector('#app').innerHTML = `
           </svg>
           GitHub
         </a>
+
         <a class="social-link" href="https://www.linkedin.com/in/luis-navarrete-7222013a2/" target="_blank" rel="noreferrer">
           <svg viewBox="0 0 24 24" aria-hidden="true">
             <path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.13 1.44-2.13 2.93v5.68H9.37V9h3.41v1.56h.05c.47-.9 1.63-1.85 3.36-1.85 3.6 0 4.26 2.37 4.26 5.45v6.29zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45zM22.23 0H1.77C.79 0 0 .77 0 1.72v20.56C0 23.23.79 24 1.77 24h20.46c.98 0 1.77-.77 1.77-1.72V1.72C24 .77 23.21 0 22.23 0z"/>
@@ -34,12 +39,16 @@ document.querySelector('#app').innerHTML = `
     </aside>
 
     <main class="content">
-      <section class="hero-card" aria-labelledby="intro-title">
-        <h1 id="intro-title">Hola, soy Luis <span aria-hidden="true">👋</span></h1>
-        <p class="subtitle">Estudiante de Ingeniería en Informática</p>
-        <span class="accent"></span>
+      <!-- HOME (hero centrado) -->
+      <section class="hero-section" id="home" aria-labelledby="intro-title">
+        <div class="hero-card">
+          <h1 id="intro-title">Hola, soy Luis <span aria-hidden="true">👋</span></h1>
+          <p class="subtitle">Estudiante de Ingeniería en Informática</p>
+          <span class="accent"></span>
+        </div>
       </section>
 
+      <!-- Secciones (solo visibles cuando se activan) -->
       <section id="about" class="section-card">
         <h2>Acerca de mi</h2>
         <p>
@@ -56,11 +65,44 @@ document.querySelector('#app').innerHTML = `
         </ul>
       </section>
 
-      <section id="projects" class="section-card">
+      <section id="projects" class="section-card projects-section">
         <h2>Proyectos</h2>
-        <p>
-          Aquí podrás ver mis proyectos destacados con sus descripciones y enlaces para explorarlos.
-        </p>
+        <p class="projects-subtitle">Una selección de trabajos recientes y soluciones que he construido.</p>
+
+        <div class="projects-grid" id="projectsGrid"></div>
+
+        <!-- Modal -->
+        <div class="modal" id="projectModal" aria-hidden="true">
+          <div class="modal-backdrop" data-close="true"></div>
+
+          <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+            <button class="modal-close" id="modalClose" aria-label="Cerrar">×</button>
+
+            <div class="modal-header">
+              <h3 id="modalTitle" class="modal-title"></h3>
+            </div>
+
+            <div class="modal-body">
+              <div class="modal-media">
+                <button class="carousel-btn prev" id="carouselPrev" aria-label="Anterior">‹</button>
+                <img class="modal-image" id="modalImage" alt="" />
+                <button class="carousel-btn next" id="carouselNext" aria-label="Siguiente">›</button>
+              </div>
+
+              <div class="modal-content">
+                <h4 class="modal-section-title">Sobre el proyecto</h4>
+                <p class="modal-desc" id="modalDesc"></p>
+
+                <h4 class="modal-section-title">Tecnologías</h4>
+                <div class="tag-row" id="modalTags"></div>
+
+                <div class="modal-actions">
+                  <a class="btn-primary" id="modalLink" href="#" target="_blank" rel="noreferrer">Ver proyecto</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </section>
 
       <section id="contact" class="section-card">
@@ -72,6 +114,8 @@ document.querySelector('#app').innerHTML = `
     </main>
   </div>
 `
+
+// Intro screen (tu código, intacto)
 const introScreen = document.querySelector('#intro-screen')
 
 if (introScreen) {
@@ -88,3 +132,204 @@ if (introScreen) {
   )
 }
 
+// ===== Navegación por "vistas" (home vs secciones) =====
+const heroSection = document.querySelector('.hero-section')
+const navLinks = document.querySelectorAll('.nav a')
+const sections = document.querySelectorAll('.section-card')
+
+function showHome() {
+  heroSection.style.display = 'flex'
+  sections.forEach((s) => s.classList.remove('is-active'))
+}
+
+function showSection(id) {
+  heroSection.style.display = 'none'
+  sections.forEach((s) => s.classList.remove('is-active'))
+  const target = document.querySelector(id)
+  if (target) target.classList.add('is-active')
+}
+
+navLinks.forEach((link) => {
+  link.addEventListener('click', (e) => {
+    const href = link.getAttribute('href')
+    if (!href || !href.startsWith('#')) return
+
+    e.preventDefault()
+    history.pushState(null, '', href)
+
+    if (href === '#home') showHome()
+    else showSection(href)
+  })
+})
+
+// Soporta back/forward del navegador
+window.addEventListener('popstate', () => {
+  const hash = location.hash || '#home'
+  if (hash === '#home') showHome()
+  else showSection(hash)
+})
+
+// Estado inicial al cargar
+const initialHash = location.hash || '#home'
+if (initialHash === '#home') showHome()
+else showSection(initialHash)
+
+
+// ====== Proyectos (grid + modal) ======
+const projects = [
+  {
+    title: 'Veterinaria de Arce',
+    desc: 'Comunidad y catálogo de especies con blog y contenido.',
+    longDesc:
+      'Optimizacion para veterinaria: Plataforma Web para la administracion de Citas y Atenciones Clinicas.',
+    tags: ['Python', 'Django', 'Html','Css','MYSQL'],
+    cover: '/projects/Vet_portada.png',
+    images: ['/projects/Vet_inicio.png', '/projects/Vet_panel.png', '/projects/Vet_panel2.png'],
+    link: 'https://veterinariaarce.pythonanywhere.com'
+  },
+  {
+    title: 'Test',
+    desc: 'Tests de proyecto.',
+    longDesc:
+      'Servicio test.',
+    tags: ['HTML', 'CSS', 'JavaScript'],
+    cover: '/projects/jardin-cover.png',
+    images: ['/projects/jardin-1.png', '/projects/jardin-2.png'],
+    link: ''
+  },
+]
+
+// Render del grid
+const projectsGrid = document.getElementById('projectsGrid')
+
+function tagChip(text) {
+  return `<span class="tag">${text}</span>`
+}
+
+function renderProjects() {
+  if (!projectsGrid) return
+
+  projectsGrid.innerHTML = projects
+    .map(
+      (p, i) => `
+      <article class="project-card" data-index="${i}" tabindex="0" role="button" aria-label="Ver detalles de ${p.title}">
+        <div class="project-media">
+          <img src="${p.cover}" alt="Imagen de ${p.title}" loading="lazy" />
+        </div>
+        <div class="project-info">
+          <h3 class="project-title">${p.title}</h3>
+          <p class="project-desc">${p.desc}</p>
+          <div class="tag-row">
+            ${p.tags.slice(0, 3).map(tagChip).join('')}
+            ${p.tags.length > 3 ? `<span class="tag tag-muted">+${p.tags.length - 3}</span>` : ''}
+          </div>
+        </div>
+      </article>
+    `,
+    )
+    .join('')
+}
+
+renderProjects()
+
+// Modal logic
+const modal = document.getElementById('projectModal')
+const modalClose = document.getElementById('modalClose')
+const modalTitle = document.getElementById('modalTitle')
+const modalDesc = document.getElementById('modalDesc')
+const modalTags = document.getElementById('modalTags')
+const modalImage = document.getElementById('modalImage')
+const modalLink = document.getElementById('modalLink')
+const carouselPrev = document.getElementById('carouselPrev')
+const carouselNext = document.getElementById('carouselNext')
+
+let activeProjectIndex = 0
+let activeImageIndex = 0
+
+function openModal(projectIndex) {
+  activeProjectIndex = projectIndex
+  activeImageIndex = 0
+
+  const p = projects[projectIndex]
+  modalTitle.textContent = p.title
+  modalDesc.textContent = p.longDesc || p.desc
+
+  modalTags.innerHTML = p.tags.map(tagChip).join('')
+
+  // Link
+  if (p.link) {
+    modalLink.style.display = 'inline-flex'
+    modalLink.href = p.link
+  } else {
+    modalLink.style.display = 'none'
+    modalLink.href = '#'
+  }
+
+  setModalImage()
+
+  modal.classList.add('is-open')
+  modal.setAttribute('aria-hidden', 'false')
+  document.body.style.overflow = 'hidden'
+}
+
+function closeModal() {
+  modal.classList.remove('is-open')
+  modal.setAttribute('aria-hidden', 'true')
+  document.body.style.overflow = ''
+}
+
+function setModalImage() {
+  const p = projects[activeProjectIndex]
+  const imgs = p.images?.length ? p.images : [p.cover]
+  const src = imgs[activeImageIndex] || imgs[0]
+  modalImage.src = src
+  modalImage.alt = `Captura ${activeImageIndex + 1} de ${p.title}`
+
+  carouselPrev.disabled = imgs.length <= 1
+  carouselNext.disabled = imgs.length <= 1
+}
+
+function nextImage() {
+  const p = projects[activeProjectIndex]
+  const imgs = p.images?.length ? p.images : [p.cover]
+  activeImageIndex = (activeImageIndex + 1) % imgs.length
+  setModalImage()
+}
+
+function prevImage() {
+  const p = projects[activeProjectIndex]
+  const imgs = p.images?.length ? p.images : [p.cover]
+  activeImageIndex = (activeImageIndex - 1 + imgs.length) % imgs.length
+  setModalImage()
+}
+
+// Abrir modal desde card (click + enter)
+projectsGrid?.addEventListener('click', (e) => {
+  const card = e.target.closest('.project-card')
+  if (!card) return
+  openModal(Number(card.dataset.index))
+})
+
+projectsGrid?.addEventListener('keydown', (e) => {
+  if (e.key !== 'Enter') return
+  const card = e.target.closest('.project-card')
+  if (!card) return
+  openModal(Number(card.dataset.index))
+})
+
+// Cerrar modal
+modal?.addEventListener('click', (e) => {
+  if (e.target?.dataset?.close === 'true') closeModal()
+})
+
+modalClose?.addEventListener('click', closeModal)
+
+window.addEventListener('keydown', (e) => {
+  if (!modal.classList.contains('is-open')) return
+  if (e.key === 'Escape') closeModal()
+  if (e.key === 'ArrowRight') nextImage()
+  if (e.key === 'ArrowLeft') prevImage()
+})
+
+carouselNext?.addEventListener('click', nextImage)
+carouselPrev?.addEventListener('click', prevImage)
