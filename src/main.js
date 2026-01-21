@@ -1,5 +1,7 @@
 import './style.css'
 
+const withBase = (path) => `${import.meta.env.BASE_URL}${path.replace(/^\/+/, '')}`
+
 document.querySelector('#app').innerHTML = `
   <div class="intro-screen" id="intro-screen" aria-hidden="true">
     <div class="intro-content">
@@ -183,8 +185,12 @@ const projects = [
     longDesc:
       'Optimizacion para veterinaria: Plataforma Web para la administracion de Citas y Atenciones Clinicas.',
     tags: ['Python', 'Django', 'Html','Css','MYSQL'],
-    cover: '/projects/Vet_portada.png',
-    images: ['/projects/Vet_inicio.png', '/projects/Vet_panel.png', '/projects/Vet_panel2.png'],
+    cover: withBase('projects/Vet_portada.png'),
+    images: [
+      withBase('projects/Vet_inicio.png'),
+      withBase('projects/Vet_panel.png'),
+      withBase('projects/Vet_panel2.png'),
+    ],
     link: 'https://veterinariaarce.pythonanywhere.com'
   },
   {
@@ -193,8 +199,8 @@ const projects = [
     longDesc:
       'Servicio test.',
     tags: ['HTML', 'CSS', 'JavaScript'],
-    cover: '/projects/jardin-cover.png',
-    images: ['/projects/jardin-1.png', '/projects/jardin-2.png'],
+    cover: withBase('projects/jardin-cover.png'),
+    images: [withBase('projects/jardin-1.png'), withBase('projects/jardin-2.png')],
     link: ''
   },
 ]
