@@ -230,25 +230,25 @@ hedgehogBtn.addEventListener('animationend', resetHedgehog)
 const projects = [
   {
     title: 'Veterinaria de Arce',
-    desc: 'Comunidad y catálogo de especies con blog y contenido.',
+    desc: 'plataforma web para la gestión y digitalización de clínicas veterinarias.',
     longDesc:
-      'Optimizacion para veterinaria: Plataforma Web para la administracion de Citas y Atenciones Clinicas.',
+      'Vet de Arce es un sistema web que centraliza la gestión de una clínica veterinaria, permitiendo administrar citas, información clínica y procesos internos de forma digital, mejorando la organización y eficiencia del servicio.',
     tags: ['Python', 'Django', 'Html','Css','MYSQL'],
-    cover: withBase('projects/Vet_portada.png'),
+    cover: withBase('projects/Vet_Arce/Vet_portada.png'),
     images: [
-      withBase('projects/Vet_inicio.png'),
-      withBase('projects/Vet_panel.png'),
-      withBase('projects/Vet_panel2.png'),
+      withBase('projects/Vet_Arce/Vet_inicio.png'),  
+      withBase('projects/Vet_Arce/Vet_panel.png'),
+      withBase('projects/Vet_Arce/Vet_panel2.png'),
     ],
     link: 'https://veterinariaarce.pythonanywhere.com'
   },
   {
-    title: 'Test',
-    desc: 'Tests de proyecto.',
-    longDesc: 'Servicio test.',
-    tags: ['HTML', 'CSS', 'JavaScript'],
-    cover: withBase('projects/jardin-cover.png'),
-    images: [withBase('projects/jardin-1.png'), withBase('projects/jardin-2.png')],
+    title: 'Nini Atelier',
+    desc: 'página web tipo catálogo para mostrar trabajos de uñas y facilitar el contacto.',
+    longDesc: 'Nini Atelier es una página web creada como catálogo digital, donde se exhiben trabajos de manicure, esmaltado y diseños, junto con información de contacto para facilitar la comunicación con clientes.',
+    tags: ['HTML', 'CSS', 'JavaScript','Bootstrap 5'],
+    cover: withBase('projects/Nini_atelier/Nini_portada.png'),
+    images: [withBase('projects/Nini_atelier/nini1.png'), withBase('projects/Nini_atelier/nini2.png')],
     link: ''
   },
 ]
